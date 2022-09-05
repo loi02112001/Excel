@@ -11,16 +11,19 @@ class Items extends React.Component {
         listCheked: [],
         checked: []
     }
-    handleCheck = id => {
-        if (this.state.checked.includes(id)) {
-            this.state.checked = this.state.checked.filter(item => item !== id)
-        }
-        else {
-            this.state.checked.push(id)
-        }
-        console.log(this.state.checked,'12333333333333');
-    }
-    // }
+    
+    // cach 2
+    // handleCheck = id => {
+    //     if (this.state.checked.includes(id)) {
+    //         this.state.checked = this.state.checked.filter(item => item !== id)
+    //     }
+    //     else {
+    //         this.state.checked.push(id)
+    //     }
+    //     console.log(this.state.checked,'12333333333333'); 
+    //  }
+
+    //cach 1
     // uniqInsert(idInsert, originalArr) {
     //     console.log(originalArr,'day la originalArr');
     //     if(originalArr.includes(idInsert)) {
@@ -32,7 +35,7 @@ class Items extends React.Component {
 
     render() {
         let listData = []
-        var listCheck = []
+        
         if (this.props.items) {
             listData = this.props.items.map((item, key) => {
                 return (
@@ -42,7 +45,7 @@ class Items extends React.Component {
                         <th>{item.age}</th>
                         <th><button onClick={() => { this.props.deleteItem({ id: item._id }) }}>Delete</button></th>
                         <th><button onClick={() => { this.setState({ id: item._id, nameUpdate: item.name, ageUpdate: item.age }) }}>Choose</button></th>
-                        {/* <th>
+                        {/* cach 1  <th>
                             <input type='checkbox' className=""
                                 value={item._id}
                                 onChange={
@@ -57,18 +60,21 @@ class Items extends React.Component {
                                 }
                             />
                         </th> */}
+
+                         {/* cach 3 */}
                         {/* <th><input type='checkbox'  onChange={() => {
-                            if(listCheck.includes(item._id)){
-                                let vitri = listCheck.indexOf(item._id)
+                            if(this.state.listCheked.includes(item._id)){
+                                let vitri = this.state.listCheked.indexOf(item._id)
                               
-                                listCheck.splice(vitri,1)
+                                this.state.listCheked.splice(vitri,1)
                             }else{
-                                listCheck.push(item)
+                                this.state.listCheked.push(item._id)
                             }
-                            console.log(listCheck,'dayyyyyyyyy');
+                            console.log(this.state.listCheked,'dayyyyyyyyy');
                       
                             }}></input></th> */}
-                        <th><input type='checkbox' value={item._id} onChange={() => { this.handleCheck(item._id) }} /></th>
+
+                        {/* cach2 <th><input type='checkbox' value={item._id} onChange={() => { this.handleCheck(item._id) }} /></th> */}
                     </tr>)
             })
         }
@@ -82,7 +88,6 @@ class Items extends React.Component {
                     this.setState({
                         age: e.target.value
                     })
-                    console.log(listCheck, 'ddddddddddddddddddddddd')
                 }}></input>
                 <button onClick={() => {
                     this.props.addItem({
@@ -93,8 +98,9 @@ class Items extends React.Component {
                 <input value={this.state.ageUpdate} onChange={(e) => { this.setState({ ageUpdate: e.target.value }) }}></input>
                 <button onClick={() => { this.props.updateItem({ id: this.state.id, nameUpdate: this.state.nameUpdate, ageUpdate: this.state.ageUpdate }) }}>Update</button>
                 <button onClick={() => {
-                    // const setUpDataToExport = this.props.items.filter(item => this.state.idCheck.includes(item._id))
-                    const setUpDataToExport = this.state
+                    //cach1 const setUpDataToExport = this.props.items.filter(item => this.state.idCheck.includes(item._id))
+                    //cach2 const setUpDataToExport = this.props.items.filter(item => this.state.checked.includes(item._id))
+                    //cach3 const setUpDataToExport = this.props.items.filter(item => this.state.listCheked.includes(item._id))
 
                     let ws = XLSX.utils.json_to_sheet(setUpDataToExport)
                     let wb = { Sheets: { data: ws }, SheetNames: ['data'] }
